@@ -12,19 +12,15 @@ public class UserDTO {
 
     private String username;
     private String password;
+    private String roleName;
     private boolean authenticated;
 
     public static UserDTO of(User user) {
         return UserDTO.builder()
                 .username(user.getUsername())
                 .password(user.getPassword())
+                .roleName(user.getRole().getRoleName())
                 .authenticated(true)
-                .build();
-    }
-
-    public static UserDTO createUnauthenticatedUserDTO() {
-        return UserDTO.builder()
-                .authenticated(false)
                 .build();
     }
 

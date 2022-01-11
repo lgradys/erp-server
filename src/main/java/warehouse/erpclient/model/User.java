@@ -3,10 +3,8 @@ package warehouse.erpclient.model;
 import lombok.*;
 import warehouse.erpclient.dto.UserDTO;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -23,11 +21,8 @@ public class User {
     private String username;
     private String password;
 
-    public static User of(UserDTO userDTO) {
-        return User.builder()
-                .username(userDTO.getUsername())
-                .password(userDTO.getPassword())
-                .build();
-    }
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "role_id")
+    private Role role;
 
 }
