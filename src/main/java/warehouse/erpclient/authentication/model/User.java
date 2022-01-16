@@ -1,10 +1,8 @@
-package warehouse.erpclient.model;
+package warehouse.erpclient.authentication.model;
 
 import lombok.*;
-import warehouse.erpclient.dto.UserDTO;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Getter
 @Setter

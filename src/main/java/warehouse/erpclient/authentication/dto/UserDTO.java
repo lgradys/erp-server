@@ -1,9 +1,9 @@
-package warehouse.erpclient.dto;
+package warehouse.erpclient.authentication.dto;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import warehouse.erpclient.model.User;
+import warehouse.erpclient.authentication.model.User;
 
 @Getter
 @Setter

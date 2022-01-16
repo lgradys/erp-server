@@ -1,13 +1,13 @@
-package warehouse.erpclient.controller;
+package warehouse.erpclient.authentication.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import warehouse.erpclient.dto.LoginCredentials;
-import warehouse.erpclient.dto.UserDTO;
-import warehouse.erpclient.service.JWTService;
-import warehouse.erpclient.service.UserService;
+import warehouse.erpclient.authentication.dto.LoginCredentials;
+import warehouse.erpclient.authentication.dto.UserDTO;
+import warehouse.erpclient.authentication.service.JWTService;
+import warehouse.erpclient.authentication.service.UserService;
 
 import javax.servlet.http.HttpServletResponse;
 

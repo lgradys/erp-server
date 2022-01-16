@@ -1,12 +1,12 @@
-package warehouse.erpclient.config;
+package warehouse.erpclient.authentication.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerExceptionResolver;
-import warehouse.erpclient.filter.AuthenticationFilter;
-import warehouse.erpclient.service.JWTService;
+import warehouse.erpclient.authentication.filter.AuthenticationFilter;
+import warehouse.erpclient.authentication.service.JWTService;
 
 @Configuration
 @RequiredArgsConstructor

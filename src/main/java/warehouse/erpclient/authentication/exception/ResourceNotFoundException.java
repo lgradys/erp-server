@@ -1,4 +1,4 @@
-package warehouse.erpclient.exception;
+package warehouse.erpclient.authentication.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
 

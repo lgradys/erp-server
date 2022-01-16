@@ -1,4 +1,4 @@
-package warehouse.erpclient.dto;
+package warehouse.erpclient.authentication.dto;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

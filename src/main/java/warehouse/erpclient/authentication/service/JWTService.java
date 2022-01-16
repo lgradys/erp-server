@@ -1,4 +1,4 @@
-package warehouse.erpclient.service;
+package warehouse.erpclient.authentication.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -6,7 +6,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import warehouse.erpclient.dto.UserDTO;
+import warehouse.erpclient.authentication.dto.UserDTO;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
