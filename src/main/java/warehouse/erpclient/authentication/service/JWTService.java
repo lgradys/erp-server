@@ -35,7 +35,7 @@ public class JWTService {
                 .withSubject(userDTO.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis()+TOKEN_EXPIRATION))
                 .withClaim("username", userDTO.getUsername())
-                .withClaim("role", userDTO.getRoleName())
+                .withClaim("authority", userDTO.getRoleName())
                 .sign(Algorithm.HMAC512(TOKEN_SIGN));
     }
 

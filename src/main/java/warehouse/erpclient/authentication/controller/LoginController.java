@@ -16,13 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginController {
 
     private final UserService userService;
-    private final JWTService jwtService;
 
     @PostMapping("/login")
     public UserDTO login(@RequestBody LoginCredentials loginCredentials, HttpServletResponse response) {
-        UserDTO user = userService.authenticate(loginCredentials);
-        jwtService.addTokenToResponse(user, response);
-        return user;
+        return userService.authenticate(loginCredentials, response);
     }
 
 }
