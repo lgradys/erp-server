@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import warehouse.erpclient.authentication.model.User;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Getter
@@ -12,7 +14,12 @@ import java.util.Objects;
 @Builder
 public class UserDTO {
 
+    @NotNull
+    @Size(min = 2)
     private String username;
+
+    @NotNull
+    @Size(min = 8, max = 45)
     private String password;
     private String roleName;
     private boolean authenticated;
@@ -38,4 +45,5 @@ public class UserDTO {
     public int hashCode() {
         return Objects.hash(username, password, roleName, authenticated);
     }
+
 }

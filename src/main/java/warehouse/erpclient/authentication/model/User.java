@@ -1,6 +1,7 @@
 package warehouse.erpclient.authentication.model;
 
 import lombok.*;
+import warehouse.erpclient.authentication.dto.UserDTO;
 
 import javax.persistence.*;
 
@@ -16,10 +17,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(unique = true, nullable = false)
     private String username;
+
+    @Column(nullable = false)
     private String password;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "role_id")
     private Role role;
 
