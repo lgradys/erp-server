@@ -6,21 +6,20 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerExceptionResolver;
-import warehouse.erpclient.authentication.filter.AuthenticationFilter;
+import warehouse.erpclient.authentication.filter.AuthorizationFilter;
 import warehouse.erpclient.authentication.service.JWTService;
 
 @Configuration
 @RequiredArgsConstructor
-public class AuthenticationConfig {
-
-    private final HandlerExceptionResolver handlerExceptionResolver;
+public class AuthorizationConfiguration {
+    
     private final JWTService jwtService;
     private final ObjectMapper objectMapper;
 
     @Bean
-    public FilterRegistrationBean<AuthenticationFilter> authenticationFilterBean() {
-        FilterRegistrationBean<AuthenticationFilter> filterRegistrationBean = new FilterRegistrationBean<>();
-        filterRegistrationBean.setFilter(new AuthenticationFilter(jwtService, objectMapper));
+    public FilterRegistrationBean<AuthorizationFilter> authorizationFilterBean() {
+        FilterRegistrationBean<AuthorizationFilter> filterRegistrationBean = new FilterRegistrationBean<>();
+        filterRegistrationBean.setFilter(new AuthorizationFilter(jwtService, objectMapper));
         return filterRegistrationBean;
     }
 

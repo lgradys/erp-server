@@ -17,7 +17,7 @@ public class UserController {
 
     @GetMapping("/user/{username}")
     public ResponseEntity<RequestResult<UserDTO>> getUser(@PathVariable String username) {
-        return userService.findUserByUsername(username);
+        return userService.getUser(username);
     }
 
     @PostMapping("/user")

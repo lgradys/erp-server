@@ -38,12 +38,11 @@ public class UserDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserDTO userDTO = (UserDTO) o;
-        return authenticated == userDTO.authenticated && username.equals(userDTO.username) && password.equals(userDTO.password) && roleName.equals(userDTO.roleName);
+        return Objects.equals(username, userDTO.username) && Objects.equals(password, userDTO.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, password, roleName, authenticated);
+        return Objects.hash(username, password);
     }
-
 }

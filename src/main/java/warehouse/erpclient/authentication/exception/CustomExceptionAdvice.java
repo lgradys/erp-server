@@ -15,11 +15,6 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class CustomExceptionAdvice {
 
-    @ExceptionHandler(AuthenticationException.class)
-    public ResponseEntity<String> handleAuthenticationException(AuthenticationException exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpHeaders.EMPTY, HttpStatus.UNAUTHORIZED);
-    }
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<RequestResult<?>> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
         List<Error> errorList = createErrorList(exception);

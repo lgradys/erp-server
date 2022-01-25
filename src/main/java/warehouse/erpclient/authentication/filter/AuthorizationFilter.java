@@ -18,21 +18,21 @@ import java.util.Arrays;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class AuthenticationFilter extends HttpFilter {
+public class AuthorizationFilter extends HttpFilter {
 
     private final JWTService jwtService;
     private final ObjectMapper objectMapper;
 
     @Override
     protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        if (isAuthenticationRequired(request)) {
+        if (isAuthorizationRequired(request)) {
             chain.doFilter(request, response);
         } else {
-            authenticateRequest(request, response, chain);
+            authorizeRequest(request, response, chain);
         }
     }
 
-    private void authenticateRequest(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+    private void authorizeRequest(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String token = request.getHeader(jwtService.getTOKEN_HEADER_NAME());
         if (token == null || !token.startsWith(jwtService.getTOKEN_PREFIX())) {
             createUnauthorizedResponse(response, "Unauthorized request!");
@@ -53,9 +53,9 @@ public class AuthenticationFilter extends HttpFilter {
         writer.flush();
     }
 
-    private boolean isAuthenticationRequired(HttpServletRequest request) {
-        return Arrays.stream(AuthenticationExclude.values())
-                .map(AuthenticationExclude::getPath)
+    private boolean isAuthorizationRequired(HttpServletRequest request) {
+        return Arrays.stream(AuthorizationExclude.values())
+                .map(AuthorizationExclude::getPath)
                 .map(s -> request.getServletPath().equals(s))
                 .filter(aBoolean -> aBoolean.equals(true))
                 .findAny().orElse(false);

@@ -26,7 +26,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
 
-    public ResponseEntity<RequestResult<UserDTO>> findUserByUsername(String username) {
+    public ResponseEntity<RequestResult<UserDTO>> getUser(String username) {
         Optional<User> user = userRepository.findByUsername(username);
         RequestResult<UserDTO> requestResult;
         if (user.isPresent()) {
