@@ -2,6 +2,7 @@ package warehouse.erpclient.authentication.filter;
 
 public enum AuthenticationExclude {
 
+    LOGIN("/login"),
     H_CONSOLE("/h2-console");
 
     private final String path;

@@ -1,5 +1,6 @@
 package warehouse.erpclient.authentication.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -14,11 +15,12 @@ public class AuthenticationConfig {
 
     private final HandlerExceptionResolver handlerExceptionResolver;
     private final JWTService jwtService;
+    private final ObjectMapper objectMapper;
 
     @Bean
     public FilterRegistrationBean<AuthenticationFilter> authenticationFilterBean() {
         FilterRegistrationBean<AuthenticationFilter> filterRegistrationBean = new FilterRegistrationBean<>();
-        filterRegistrationBean.setFilter(new AuthenticationFilter(jwtService, handlerExceptionResolver));
+        filterRegistrationBean.setFilter(new AuthenticationFilter(jwtService, objectMapper));
         return filterRegistrationBean;
     }
 
