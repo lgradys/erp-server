@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import warehouse.erpclient.authentication.dto.LoginCredentials;
-import warehouse.erpclient.authentication.dto.RequestResult;
+import warehouse.erpclient.request_result.RequestResult;
 import warehouse.erpclient.authentication.dto.UserDTO;
 import warehouse.erpclient.authentication.service.LoginService;
 

@@ -6,9 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import warehouse.erpclient.authentication.dto.Error;
-import warehouse.erpclient.authentication.dto.RequestResult;
+import warehouse.erpclient.request_result.Error;
+import warehouse.erpclient.request_result.RequestResult;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,6 +20,13 @@ public class CustomExceptionAdvice {
     public ResponseEntity<RequestResult<?>> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
         List<Error> errorList = createErrorList(exception);
         RequestResult<Object> requestResult = new RequestResult<>(HttpStatus.BAD_REQUEST.value(), errorList, List.of());
+        return new ResponseEntity<>(requestResult, HttpHeaders.EMPTY, HttpStatus.valueOf(requestResult.getStatus()));
+    }
+
+    @ExceptionHandler(SQLException.class)
+    public ResponseEntity<RequestResult<?>> handleSQLException(SQLException exception) {
+        List<Error> errors = List.of(new Error("Unprocessable entity!"));
+        RequestResult<Object> requestResult = new RequestResult<>(HttpStatus.UNPROCESSABLE_ENTITY.value(), errors, List.of());
         return new ResponseEntity<>(requestResult, HttpHeaders.EMPTY, HttpStatus.valueOf(requestResult.getStatus()));
     }
 

@@ -15,19 +15,13 @@ public class WarehouseDTO {
     @NotNull
     private String name;
 
-    private String street;
-    private int streetNumber;
-    private String postalCode;
-    private String city;
+    private AddressDTO address;
 
     public static WarehouseDTO of (Warehouse warehouse) {
         return WarehouseDTO.builder()
                 .id(warehouse.getId())
                 .name(warehouse.getName())
-                .street(warehouse.getAddress().getStreet())
-                .streetNumber(warehouse.getAddress().getStreetNumber())
-                .postalCode(warehouse.getAddress().getPostalCode())
-                .city(warehouse.getAddress().getCity())
+                .address(AddressDTO.of(warehouse.getAddress()))
                 .build();
     }
 

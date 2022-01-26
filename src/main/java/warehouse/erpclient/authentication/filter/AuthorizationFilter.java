@@ -3,8 +3,8 @@ package warehouse.erpclient.authentication.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import warehouse.erpclient.authentication.dto.Error;
-import warehouse.erpclient.authentication.dto.RequestResult;
+import warehouse.erpclient.request_result.Error;
+import warehouse.erpclient.request_result.RequestResult;
 import warehouse.erpclient.authentication.service.JWTService;
 
 import javax.servlet.FilterChain;

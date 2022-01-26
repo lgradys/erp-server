@@ -1,10 +1,8 @@
 package warehouse.erpclient.warehouse.model;
 
 import lombok.*;
-import org.springframework.context.annotation.EnableMBeanExport;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Getter

@@ -1,17 +1,15 @@
 package warehouse.erpclient.authentication.service;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockHttpServletResponse;
 import warehouse.erpclient.authentication.dto.LoginCredentials;
-import warehouse.erpclient.authentication.dto.RequestResult;
+import warehouse.erpclient.request_result.RequestResult;
 import warehouse.erpclient.authentication.dto.UserDTO;
 import warehouse.erpclient.authentication.model.Role;
 import warehouse.erpclient.authentication.model.User;

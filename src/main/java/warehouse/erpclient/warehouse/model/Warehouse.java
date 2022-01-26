@@ -1,6 +1,7 @@
 package warehouse.erpclient.warehouse.model;
 
 import lombok.*;
+import warehouse.erpclient.warehouse.dto.WarehouseDTO;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -47,6 +48,13 @@ public class Warehouse {
             items = new HashSet<>();
         }
         items.add(item);
+    }
+
+    public static Warehouse of (WarehouseDTO warehouseDTO) {
+        return Warehouse.builder()
+                .name(warehouseDTO.getName())
+                .address(Address.of(warehouseDTO.getAddress()))
+                .build();
     }
 
 }
