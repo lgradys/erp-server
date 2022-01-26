@@ -1,4 +1,4 @@
-package warehouse.erpclient.exception;
+package warehouse.erpclient.common.exception;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -6,8 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import warehouse.erpclient.request_result.Error;
-import warehouse.erpclient.request_result.RequestResult;
+import warehouse.erpclient.common.request_result.Error;
+import warehouse.erpclient.common.request_result.RequestResult;
 
 import java.sql.SQLException;
 import java.util.List;

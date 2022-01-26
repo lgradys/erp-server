@@ -43,11 +43,12 @@ public class Warehouse {
         return Objects.hash(name);
     }
 
-    public void addItem(Item item) {
+    public Item addItem(Item item) {
         if (items == null) {
             items = new HashSet<>();
         }
         items.add(item);
+        return item;
     }
 
     public static Warehouse of (WarehouseDTO warehouseDTO) {

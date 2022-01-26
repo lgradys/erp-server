@@ -1,4 +1,4 @@
-package warehouse.erpclient.request_result;
+package warehouse.erpclient.common.request_result;
 
 import lombok.Getter;
 
@@ -15,4 +15,7 @@ public class Error {
         this.message = "Could not find any " + className.getSimpleName() + " with id: " + id;
     }
 
+    public Error() {
+        this.message = "Could not find any resource!";
+    }
 }

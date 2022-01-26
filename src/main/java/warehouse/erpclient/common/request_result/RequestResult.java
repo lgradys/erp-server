@@ -1,4 +1,4 @@
-package warehouse.erpclient.request_result;
+package warehouse.erpclient.common.request_result;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
