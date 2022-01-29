@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import warehouse.erpclient.warehouse.model.Warehouse;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 @Getter
@@ -15,6 +16,7 @@ public class WarehouseDTO {
     @NotNull
     private String name;
 
+    @Valid
     private AddressDTO address;
 
     public static WarehouseDTO of (Warehouse warehouse) {

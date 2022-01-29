@@ -3,6 +3,7 @@ package warehouse.erpclient.warehouse.dto;
 import lombok.Builder;
 import lombok.Getter;
 import warehouse.erpclient.warehouse.model.Address;
+import warehouse.erpclient.warehouse.validator.PostalCode;
 
 @Getter
 @Builder
@@ -11,6 +12,8 @@ public class AddressDTO {
     private long id;
     private String street;
     private int streetNumber;
+
+    @PostalCode
     private String postalCode;
     private String city;
 
