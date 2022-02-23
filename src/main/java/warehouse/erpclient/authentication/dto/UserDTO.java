@@ -22,14 +22,14 @@ public class UserDTO {
     @Size(min = 8, max = 45)
     private String password;
     private String roleName;
-    private boolean authenticated;
+    private boolean enabled;
 
     public static UserDTO of(User user) {
         return UserDTO.builder()
                 .username(user.getUsername())
                 .password(user.getPassword())
                 .roleName(user.getRole().getRoleName())
-                .authenticated(true)
+                .enabled(true)
                 .build();
     }
 

@@ -4,6 +4,7 @@ import lombok.*;
 import warehouse.erpclient.warehouse.dto.AddressDTO;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -30,6 +31,19 @@ public class Address {
                 .postalCode(addressDTO.getPostalCode())
                 .city(addressDTO.getCity())
                 .build();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return streetNumber == address.streetNumber && Objects.equals(street, address.street) && Objects.equals(postalCode, address.postalCode) && Objects.equals(city, address.city);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(street, streetNumber, postalCode, city);
     }
 
 }

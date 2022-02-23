@@ -6,7 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import warehouse.erpclient.common.request_result.RequestResult;
+import warehouse.erpclient.utils.dto.RequestResult;
 import warehouse.erpclient.authentication.dto.UserDTO;
 import warehouse.erpclient.authentication.model.Role;
 import warehouse.erpclient.authentication.model.User;

@@ -1,12 +1,9 @@
 package warehouse.erpclient.warehouse.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import warehouse.erpclient.common.request_result.Error;
-import warehouse.erpclient.common.request_result.RequestResult;
+import warehouse.erpclient.utils.dto.RequestResult;
 import warehouse.erpclient.warehouse.dto.ItemDTO;
 import warehouse.erpclient.warehouse.model.Item;
 import warehouse.erpclient.warehouse.model.Warehouse;
@@ -25,66 +22,49 @@ public class ItemService {
     private final ItemRepository itemRepository;
     private final WarehouseRepository warehouseRepository;
 
-    public ResponseEntity<RequestResult<ItemDTO>> getAllItems(Long warehouseId) {
+    public ResponseEntity<RequestResult<ItemDTO>> getItems(Long warehouseId) {
         List<Item> items = itemRepository.findAllByWarehouseId(warehouseId);
-        RequestResult<ItemDTO> requestResult;
-        if (items.isEmpty()) {
-            requestResult = new RequestResult<>(HttpStatus.NOT_FOUND.value(), List.of(new Error()), List.of());
-        } else {
-            List<ItemDTO> itemDTOS = items.stream()
-                    .map(ItemDTO::of)
-                    .collect(Collectors.toList());
-            requestResult = new RequestResult<>(HttpStatus.OK.value(), List.of(), itemDTOS);
-        }
-        return new ResponseEntity<>(requestResult, HttpHeaders.EMPTY, HttpStatus.valueOf(requestResult.getStatus()));
+        List<ItemDTO> itemDTOS = items.stream()
+                .map(ItemDTO::of)
+                .collect(Collectors.toList());
+        return RequestResult.createResponse(itemDTOS);
     }
 
     @Transactional
     public ResponseEntity<RequestResult<ItemDTO>> deleteItem(Long warehouseId, Long itemId) {
         Optional<Item> item = itemRepository.findByWarehouseIdAndId(warehouseId, itemId);
-        RequestResult<ItemDTO> requestResult;
-        if (item.isPresent()) {
-            itemRepository.delete(item.get());
-            requestResult = new RequestResult<>(HttpStatus.OK.value(), List.of(), List.of());
-        } else {
-            requestResult = new RequestResult<>(HttpStatus.NOT_FOUND.value(), List.of(new Error(itemId, Item.class)), List.of());
-        }
-        return new ResponseEntity<>(requestResult, HttpHeaders.EMPTY, HttpStatus.valueOf(requestResult.getStatus()));
+        ItemDTO itemDTO = item.map(value -> {
+            itemRepository.delete(value);
+            return ItemDTO.of(value);
+        }).orElse(null);
+        return RequestResult.createResponse(itemDTO);
     }
 
     public ResponseEntity<RequestResult<ItemDTO>> getItem(Long warehouseId, Long itemId) {
         Optional<Item> item = itemRepository.findByWarehouseIdAndId(warehouseId, itemId);
-        RequestResult<ItemDTO> requestResult;
-        requestResult = item.map(value -> new RequestResult<>(HttpStatus.OK.value(), List.of(), List.of(ItemDTO.of(value))))
-                .orElseGet(() -> new RequestResult<>(HttpStatus.NOT_FOUND.value(), List.of(new Error(itemId, Item.class)), List.of()));
-        return new ResponseEntity<>(requestResult, HttpHeaders.EMPTY, HttpStatus.valueOf(requestResult.getStatus()));
+        ItemDTO itemDTO = item.map(ItemDTO::of)
+                .orElse(null);
+        return RequestResult.createResponse(itemDTO);
     }
 
     @Transactional
     public ResponseEntity<RequestResult<ItemDTO>> addItem(Long warehouseId, ItemDTO itemDTO) {
         Optional<Warehouse> warehouse = warehouseRepository.findById(warehouseId);
-        RequestResult<ItemDTO> requestResult;
-        if (warehouse.isPresent()) {
-            Warehouse loadedWarehouse = warehouse.get();
+        ItemDTO savedItemDTO = warehouse.map(value -> {
             Item item = Item.of(itemDTO);
-            item.setWarehouse(loadedWarehouse);
+            item.setWarehouse(value);
             Item savedItem = itemRepository.save(item);
-            requestResult = new RequestResult<>(HttpStatus.OK.value(), List.of(), List.of(ItemDTO.of(savedItem)));
-        } else {
-            requestResult = new RequestResult<>(HttpStatus.NOT_FOUND.value(), List.of(new Error(warehouseId, Warehouse.class)), List.of());
-        }
-        return new ResponseEntity<>(requestResult, HttpHeaders.EMPTY, HttpStatus.valueOf(requestResult.getStatus()));
+            return ItemDTO.of(savedItem);
+        }).orElse(null);
+        return RequestResult.createResponse(savedItemDTO);
     }
 
     @Transactional
     public ResponseEntity<RequestResult<ItemDTO>> editItem(Long warehouseId, Long itemId, ItemDTO itemDTO) {
         return itemRepository.findByWarehouseIdAndId(warehouseId, itemId).map(item -> {
-            item.setName(itemDTO.getName());
-            item.setQuantity(itemDTO.getQuantity());
-            item.setQuantityUnit(itemDTO.getQuantityUnit());
+            item.editItem(itemDTO);
             Item editedItem = itemRepository.save(item);
-            RequestResult<ItemDTO> requestResult = new RequestResult<>(HttpStatus.OK.value(), List.of(), List.of(ItemDTO.of(editedItem)));
-            return new ResponseEntity<>(requestResult, HttpHeaders.EMPTY, HttpStatus.valueOf(requestResult.getStatus()));
+            return RequestResult.createResponse(ItemDTO.of(editedItem));
         }).orElseGet(() -> addItem(warehouseId, itemDTO));
     }
 

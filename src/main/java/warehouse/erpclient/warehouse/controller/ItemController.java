@@ -3,7 +3,7 @@ package warehouse.erpclient.warehouse.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import warehouse.erpclient.common.request_result.RequestResult;
+import warehouse.erpclient.utils.dto.RequestResult;
 import warehouse.erpclient.warehouse.dto.ItemDTO;
 import warehouse.erpclient.warehouse.service.ItemService;
 
@@ -18,7 +18,7 @@ public class ItemController {
 
     @GetMapping("/{warehouseId}/items")
     public ResponseEntity<RequestResult<ItemDTO>> getAllItems(@PathVariable Long warehouseId) {
-        return itemService.getAllItems(warehouseId);
+        return itemService.getItems(warehouseId);
     }
 
     @GetMapping("/{warehouseId}/items/{itemId}")
@@ -27,14 +27,14 @@ public class ItemController {
     }
 
     @PostMapping("/{warehouseId}/items")
-    public ResponseEntity<RequestResult<ItemDTO>> editItem(@PathVariable Long warehouseId,
-                                                           @RequestBody @Valid ItemDTO itemDTO) {
+    public ResponseEntity<RequestResult<ItemDTO>> addItem(@PathVariable Long warehouseId,
+                                                          @RequestBody @Valid ItemDTO itemDTO) {
         return itemService.addItem(warehouseId, itemDTO);
     }
 
     @PutMapping("/{warehouseId}/items/{itemId}")
-    public ResponseEntity<RequestResult<ItemDTO>> editItem(@PathVariable Long warehouseId, @PathVariable Long itemId,
-                                                           @RequestBody @Valid ItemDTO itemDTO) {
+    public ResponseEntity<RequestResult<ItemDTO>> addItem(@PathVariable Long warehouseId, @PathVariable Long itemId,
+                                                          @RequestBody @Valid ItemDTO itemDTO) {
         return itemService.editItem(warehouseId, itemId, itemDTO);
     }
 

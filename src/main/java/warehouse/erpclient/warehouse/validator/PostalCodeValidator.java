@@ -9,12 +9,13 @@ public class PostalCodeValidator implements ConstraintValidator<PostalCode, Stri
     private final String POSTAL_CODE_PATTERN = "\\d{2}-\\d{3}";
 
     @Override
-    public boolean isValid(String email, ConstraintValidatorContext constraintValidatorContext) {
-        return validate(email);
+    public boolean isValid(String postalCode, ConstraintValidatorContext constraintValidatorContext) {
+        return validate(postalCode);
     }
 
-    private boolean validate(String email) {
+    private boolean validate(String postalCode) {
         Pattern pattern = Pattern.compile(POSTAL_CODE_PATTERN);
-        return pattern.matcher(email).matches();
+        return pattern.matcher(postalCode).matches();
     }
+
 }

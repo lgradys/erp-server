@@ -58,4 +58,12 @@ public class Warehouse {
                 .build();
     }
 
+    public void editWarehouse(WarehouseDTO warehouseDTO) {
+        setName(warehouseDTO.getName());
+        getAddress().setStreet(warehouseDTO.getAddress().getStreet());
+        getAddress().setStreetNumber(warehouseDTO.getAddress().getStreetNumber());
+        getAddress().setPostalCode(warehouseDTO.getAddress().getPostalCode());
+        getAddress().setCity(warehouseDTO.getAddress().getCity());
+    }
+
 }

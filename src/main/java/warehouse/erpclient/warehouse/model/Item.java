@@ -36,6 +36,12 @@ public class Item {
                 .build();
     }
 
+    public void editItem(ItemDTO itemDTO) {
+        setName(itemDTO.getName());
+        setQuantity(itemDTO.getQuantity());
+        setQuantityUnit(itemDTO.getQuantityUnit());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

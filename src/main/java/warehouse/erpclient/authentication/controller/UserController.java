@@ -3,7 +3,7 @@ package warehouse.erpclient.authentication.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import warehouse.erpclient.common.request_result.RequestResult;
+import warehouse.erpclient.utils.dto.RequestResult;
 import warehouse.erpclient.authentication.dto.UserDTO;
 import warehouse.erpclient.authentication.service.UserService;
 
