@@ -1,4 +1,4 @@
-FROM openjdk:17
-ADD target/erp-client-0.0.1-SNAPSHOT.jar .
-EXPOSE 8000
-CMD java -jar erp-client-0.0.1-SNAPSHOT.jar
+FROM openjdk:11
+ADD target/erp-server-0.0.1-SNAPSHOT.jar .
+EXPOSE 8080
+CMD java -jar erp-server-0.0.1-SNAPSHOT.jar
