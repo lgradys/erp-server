@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import warehouse.erpclient.authentication.dto.UserDTO;
 
@@ -13,6 +14,7 @@ import java.util.Date;
 
 @Service
 @Getter
+@PropertySource("classpath:jwt.properties")
 public class JWTService {
 
     private final long TOKEN_EXPIRATION;

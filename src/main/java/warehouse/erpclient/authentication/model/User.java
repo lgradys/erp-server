@@ -1,7 +1,6 @@
 package warehouse.erpclient.authentication.model;
 
 import lombok.*;
-import warehouse.erpclient.authentication.dto.UserDTO;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -12,6 +11,7 @@ import java.util.Objects;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "users")
 public class User {
 
     @Id
