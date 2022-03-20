@@ -18,6 +18,7 @@
 
     <properties>
         <java.version>11</java.version>
+        <jwt.sign>${jwt.sign}</jwt.sign>
     </properties>
 
     <dependencies>
@@ -81,6 +82,9 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
+                <excludes>
+                    <exclude>application-prod.properties</exclude>
+                </excludes>
             </resource>
         </resources>
         <plugins>

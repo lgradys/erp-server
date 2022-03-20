@@ -34,4 +34,3 @@ build/
 
 ### Properties ###
 /src/main/resources/application-prod.properties
-/src/main/resources/jwt.properties
