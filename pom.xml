@@ -12,7 +12,7 @@
 
     <groupId>warehouse</groupId>
     <artifactId>erp-server</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0</version>
     <name>erp-server</name>
     <description>erp-server</description>
 
@@ -67,12 +67,14 @@
             </activation>
             <properties>
                 <spring.profiles.active>dev</spring.profiles.active>
+                <jwt.sign>defaultValue</jwt.sign>
             </properties>
         </profile>
         <profile>
             <id>prod</id>
             <properties>
                 <spring.profiles.active>prod</spring.profiles.active>
+                <jwt.sign>defaultValue</jwt.sign>
             </properties>
         </profile>
     </profiles>
