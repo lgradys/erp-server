@@ -6,12 +6,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import warehouse.erpclient.authentication.component.PasswordEncoder;
 import warehouse.erpclient.authentication.dto.UserDTO;
 import warehouse.erpclient.authentication.model.Role;
 import warehouse.erpclient.authentication.model.User;
 import warehouse.erpclient.authentication.repository.UserRepository;
 import warehouse.erpclient.utils.dto.RequestResult;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,6 +30,9 @@ class UserServiceTest {
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
     private static UserDTO userDTO;
     private static User user;
 
@@ -41,7 +46,7 @@ class UserServiceTest {
         user = User.builder()
                 .id(1)
                 .username("user")
-                .password("password")
+                .password("password".getBytes(StandardCharsets.UTF_8))
                 .role(Role.USER)
                 .build();
     }
@@ -79,13 +84,16 @@ class UserServiceTest {
         //given
         User newUser = User.builder()
                 .username("newUser")
-                .password("password")
+                .password("password".getBytes(StandardCharsets.UTF_8))
                 .role(Role.USER)
                 .build();
+        UserDTO userDTO = UserDTO.of(newUser);
+        userDTO.setPassword(new String(newUser.getPassword(), StandardCharsets.UTF_8));
         given(userRepository.save(newUser)).willReturn(newUser);
+        given(passwordEncoder.encode(newUser.getPassword())).willReturn(newUser.getPassword());
 
         //when
-        RequestResult<UserDTO> requestResult = userService.addUser(UserDTO.of(newUser)).getBody();
+        RequestResult<UserDTO> requestResult = userService.addUser(userDTO).getBody();
 
         //then
         assertNotNull(requestResult);

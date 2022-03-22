@@ -1,8 +1,6 @@
 package warehouse.erpclient.authentication.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import warehouse.erpclient.authentication.model.Role;
 import warehouse.erpclient.authentication.model.User;
 
@@ -13,6 +11,8 @@ import java.util.Objects;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDTO {
 
     @NotNull
@@ -28,7 +28,6 @@ public class UserDTO {
     public static UserDTO of(User user) {
         return UserDTO.builder()
                 .username(user.getUsername())
-                .password(user.getPassword())
                 .role(user.getRole())
                 .enabled(user.isEnabled())
                 .build();
@@ -39,11 +38,12 @@ public class UserDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserDTO userDTO = (UserDTO) o;
-        return Objects.equals(username, userDTO.username) && Objects.equals(password, userDTO.password);
+        return Objects.equals(username, userDTO.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, password);
+        return Objects.hash(username);
     }
+
 }

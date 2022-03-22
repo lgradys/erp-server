@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockHttpServletResponse;
+import warehouse.erpclient.authentication.component.PasswordEncoder;
 import warehouse.erpclient.authentication.dto.LoginCredentials;
 import warehouse.erpclient.authentication.model.Role;
 import warehouse.erpclient.utils.dto.RequestResult;
@@ -17,10 +18,12 @@ import warehouse.erpclient.authentication.repository.UserRepository;
 
 import javax.servlet.http.HttpServletResponse;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -37,6 +40,9 @@ class LoginServiceTest {
     @Mock
     private JWTService jwtService;
 
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
     private static UserDTO userDTO;
     private static User user;
 
@@ -52,7 +58,7 @@ class LoginServiceTest {
         user = User.builder()
                 .id(1)
                 .username("user")
-                .password("password")
+                .password("password".getBytes(StandardCharsets.UTF_8))
                 .role(Role.USER)
                 .build();
     }
@@ -65,8 +71,9 @@ class LoginServiceTest {
     @Test
     void shouldReturnUserWhenCredentialsAreCorrect() {
         //given
-        LoginCredentials loginCredentials = new LoginCredentials(user.getUsername(), user.getPassword());
+        LoginCredentials loginCredentials = new LoginCredentials(user.getUsername(), new String(user.getPassword(), StandardCharsets.UTF_8));
         given(userRepository.findByUsername(loginCredentials.getUsername())).willReturn(Optional.of(user));
+        given(passwordEncoder.encode(any(byte[].class))).willReturn(loginCredentials.getPassword().getBytes(StandardCharsets.UTF_8));
 
         //when
         RequestResult<UserDTO> requestResult = loginService.authenticate(loginCredentials, response).getBody();
@@ -81,7 +88,7 @@ class LoginServiceTest {
     void shouldReturnErrorWhenUsernameIsIncorrect() {
         //given
         String username = "incorrectUsername";
-        LoginCredentials loginCredentials = new LoginCredentials(username, user.getPassword());
+        LoginCredentials loginCredentials = new LoginCredentials(username, new String(user.getPassword(), StandardCharsets.UTF_8));
         given(userRepository.findByUsername(loginCredentials.getUsername())).willReturn(Optional.empty());
 
         //when
@@ -99,6 +106,7 @@ class LoginServiceTest {
         String password = "incorrectPassword";
         LoginCredentials loginCredentials = new LoginCredentials(user.getUsername(), password);
         given(userRepository.findByUsername(loginCredentials.getUsername())).willReturn(Optional.of(user));
+        given(passwordEncoder.encode(any(byte[].class))).willReturn(loginCredentials.getPassword().getBytes(StandardCharsets.UTF_8));
 
         //when
         RequestResult<UserDTO> requestResult = loginService.authenticate(loginCredentials, response).getBody();

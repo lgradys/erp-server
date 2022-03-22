@@ -4,6 +4,7 @@ import lombok.*;
 import warehouse.erpclient.authentication.dto.UserDTO;
 
 import javax.persistence.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 @Getter
@@ -23,7 +24,7 @@ public class User {
     private String username;
 
     @Column(nullable = false)
-    private String password;
+    private byte[] password;
 
     private Role role;
     private boolean enabled;
@@ -31,17 +32,8 @@ public class User {
     public static User of(UserDTO userDTO) {
         return User.builder()
                 .username(userDTO.getUsername())
-                .password(userDTO.getPassword())
+                .password(userDTO.getPassword().getBytes(StandardCharsets.UTF_8))
                 .role(userDTO.getRole())
-                .enabled(true)
-                .build();
-    }
-
-    public static User createNewUser(UserDTO userDTO){
-        return User.builder()
-                .username(userDTO.getUsername())
-                .password(userDTO.getPassword())
-                .role(Role.USER)
                 .enabled(true)
                 .build();
     }
@@ -51,12 +43,12 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(username, user.username) && Objects.equals(password, user.password);
+        return id == user.id && Objects.equals(username, user.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, password);
+        return Objects.hash(id, username);
     }
 
 }

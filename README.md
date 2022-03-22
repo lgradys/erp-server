@@ -1,7 +1,13 @@
 <h1 align="center">Warehouse Management REST API</h1>
 
 ## 📜 Description
-Simple REST API for warehouse management, deployed from Docker image on AWS EC2 Instance with basic CI/CD implemented with Jenkins.
+Simple REST API for warehouse management, deployed from Docker image on AWS EC2 Instance with basic CI/CD implemented with Jenkins. Development profile deployed on AWS is available on **http://ec2-35-178-184-67.eu-west-2.compute.amazonaws.com:8080**. Below you can find sample credentials to login:
+```
+{
+    "username" : "user",
+    "password" : "password"
+}
+```
 
 ## 🛠 Technology stack
 - Java
@@ -24,17 +30,22 @@ Simple REST API for warehouse management, deployed from Docker image on AWS EC2 
   - JDK 11+
 
 ## 🏃‍♂️ Installation
-- Use sample credentials:
-```
-{
-    "username" : "user",
-    "password" : "password"
-}
-```
 - Development profile (for local use):
-  - Run the application: **mvn clean spring-boot:run**
-- Development profile (deployed on AWS):
-  - Available on: **http://ec2-35-178-184-67.eu-west-2.compute.amazonaws.com:8080**
+  - Build the application:
+  ```
+  mvn clean package
+  ```
+  - Run the application:
+  ```
+  mvn spring-boot:run
+  ```
+  - Use sample credentials:
+  ```
+  {
+  "username" : "user",
+  "password" : "password"
+  }
+  ```
 
 ## 🎮 Sample responses
 ### Login stage
