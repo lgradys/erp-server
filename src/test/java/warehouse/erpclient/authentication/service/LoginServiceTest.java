@@ -9,9 +9,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockHttpServletResponse;
 import warehouse.erpclient.authentication.dto.LoginCredentials;
+import warehouse.erpclient.authentication.model.Role;
 import warehouse.erpclient.utils.dto.RequestResult;
 import warehouse.erpclient.authentication.dto.UserDTO;
-import warehouse.erpclient.authentication.model.Role;
 import warehouse.erpclient.authentication.model.User;
 import warehouse.erpclient.authentication.repository.UserRepository;
 
@@ -28,11 +28,6 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(MockitoExtension.class)
 class LoginServiceTest {
 
-    private static final long tokenExpiration = 3600;
-    private static final String tokenSign = "sign";
-    private static final String tokenHeaderName = "Authentication";
-    private static final String tokenPrefix = "Bearer ";
-
     @InjectMocks
     private LoginService loginService;
 
@@ -44,25 +39,21 @@ class LoginServiceTest {
 
     private static UserDTO userDTO;
     private static User user;
-    private static Role role;
 
     private HttpServletResponse response;
 
     @BeforeAll
     static void beforeAll() {
-        role = Role.builder()
-                .roleName("user")
-                .build();
         userDTO = UserDTO.builder()
                 .username("user")
                 .password("password")
-                .roleName(role.getRoleName())
+                .role(Role.USER)
                 .build();
         user = User.builder()
                 .id(1)
                 .username("user")
                 .password("password")
-                .role(role)
+                .role(Role.USER)
                 .build();
     }
 

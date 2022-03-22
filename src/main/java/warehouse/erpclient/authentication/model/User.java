@@ -1,6 +1,7 @@
 package warehouse.erpclient.authentication.model;
 
 import lombok.*;
+import warehouse.erpclient.authentication.dto.UserDTO;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -24,9 +25,26 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
-    @JoinColumn(name = "role_id")
     private Role role;
+    private boolean enabled;
+
+    public static User of(UserDTO userDTO) {
+        return User.builder()
+                .username(userDTO.getUsername())
+                .password(userDTO.getPassword())
+                .role(userDTO.getRole())
+                .enabled(true)
+                .build();
+    }
+
+    public static User createNewUser(UserDTO userDTO){
+        return User.builder()
+                .username(userDTO.getUsername())
+                .password(userDTO.getPassword())
+                .role(Role.USER)
+                .enabled(true)
+                .build();
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -40,4 +58,5 @@ public class User {
     public int hashCode() {
         return Objects.hash(username, password);
     }
+
 }

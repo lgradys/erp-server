@@ -3,6 +3,7 @@ package warehouse.erpclient.authentication.dto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import warehouse.erpclient.authentication.model.Role;
 import warehouse.erpclient.authentication.model.User;
 
 import javax.validation.constraints.NotNull;
@@ -21,15 +22,15 @@ public class UserDTO {
     @NotNull
     @Size(min = 8, max = 45)
     private String password;
-    private String roleName;
+    private Role role;
     private boolean enabled;
 
     public static UserDTO of(User user) {
         return UserDTO.builder()
                 .username(user.getUsername())
                 .password(user.getPassword())
-                .roleName(user.getRole().getRoleName())
-                .enabled(true)
+                .role(user.getRole())
+                .enabled(user.isEnabled())
                 .build();
     }
 

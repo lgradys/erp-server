@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletResponse;
 import warehouse.erpclient.authentication.dto.UserDTO;
+import warehouse.erpclient.authentication.model.Role;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -30,7 +31,7 @@ class JWTServiceTest {
         userDTO = UserDTO.builder()
                 .username("user")
                 .password("password")
-                .roleName("user")
+                .role(Role.USER)
                 .build();
         jwtService = new JWTService(tokenExpiration, tokenSign, tokenHeaderName, tokenPrefix);
         response = new MockHttpServletResponse();
@@ -46,7 +47,7 @@ class JWTServiceTest {
 
         //then
         assertEquals(userDTO.getUsername(), decodedJWT.getSubject());
-        assertEquals(userDTO.getRoleName(), decodedJWT.getClaim("authority").asString());
+        assertEquals(userDTO.getRole().name(), decodedJWT.getClaim("authority").asString());
     }
 
     @Test

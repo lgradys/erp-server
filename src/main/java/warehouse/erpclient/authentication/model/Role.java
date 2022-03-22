@@ -1,25 +1,15 @@
 package warehouse.erpclient.authentication.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-import javax.persistence.*;
-import java.util.Set;
-
-@Getter
-@Setter
-@Builder
 @AllArgsConstructor
-@NoArgsConstructor
-@Entity
-public class Role {
+@Getter
+public enum Role {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    USER("U"),
+    ADMIN("A");
 
-    private String roleName;
-
-    @OneToMany(mappedBy = "role")
-    private Set<User> users;
+    private String code;
 
 }
