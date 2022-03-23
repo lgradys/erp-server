@@ -1,7 +1,9 @@
 package warehouse.erpclient.warehouse.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import warehouse.erpclient.warehouse.model.Warehouse;
 
 import javax.validation.Valid;
@@ -9,6 +11,8 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class WarehouseDTO {
 
     private long id;

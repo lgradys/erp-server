@@ -37,4 +37,11 @@ public class CustomExceptionAdvice {
                 .collect(Collectors.toList());
     }
 
+    @ExceptionHandler(EnumConverterException.class)
+    public ResponseEntity<RequestResult<?>> handleEnumConverterException(EnumConverterException exception) {
+        List<Error> errorList = List.of(new Error(exception.getMessage()));
+        RequestResult<Object> requestResult = new RequestResult<>(HttpStatus.BAD_REQUEST.value(), errorList, List.of());
+        return new ResponseEntity<>(requestResult, HttpHeaders.EMPTY, HttpStatus.valueOf(requestResult.getStatus()));
+    }
+
 }

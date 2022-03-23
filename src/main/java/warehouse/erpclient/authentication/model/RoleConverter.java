@@ -1,5 +1,7 @@
 package warehouse.erpclient.authentication.model;
 
+import warehouse.erpclient.utils.exception.EnumConverterException;
+
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 import java.util.Arrays;
@@ -19,7 +21,7 @@ public class RoleConverter implements AttributeConverter<Role, String> {
         return Arrays.stream(Role.values())
                 .filter(role -> role.getCode().equals(code))
                 .findFirst()
-                .orElseThrow();
+                .orElseThrow(() -> new EnumConverterException("Incorrect user role value!"));
     }
 
 }
