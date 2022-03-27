@@ -1,7 +1,7 @@
 <h1 align="center">Warehouse Management REST API</h1>
 
 ## 📜 Description
-Simple REST API for warehouse management, deployed from Docker image on AWS EC2 Instance with basic CI/CD implemented with Jenkins. Development profile deployed on AWS is available on **http://ec2-35-178-184-67.eu-west-2.compute.amazonaws.com:8080**. Below you can find sample credentials to login:
+REST API for warehouse management, deployed from Docker image on AWS EC2 Instance with basic CI/CD implemented with Jenkins. Development profile deployed on AWS is available on **http://ec2-35-178-184-67.eu-west-2.compute.amazonaws.com:8080**. Below you can find sample credentials to login:
 ```
 {
     "username" : "user",

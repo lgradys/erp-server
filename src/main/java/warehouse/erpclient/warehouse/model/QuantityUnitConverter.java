@@ -21,7 +21,7 @@ public class QuantityUnitConverter implements AttributeConverter<QuantityUnit, S
         return Arrays.stream(QuantityUnit.values())
                 .filter(quantityUnit -> quantityUnit.getUnitSymbol().equals(unitSymbol))
                 .findFirst()
-                .orElseThrow(() -> new EnumConverterException("Incorrect quantity unit value!"));
+                .orElseThrow(() -> new EnumConverterException("Illegal quantity unit value!"));
     }
 
 }

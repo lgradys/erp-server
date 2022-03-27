@@ -21,7 +21,7 @@ public class RoleConverter implements AttributeConverter<Role, String> {
         return Arrays.stream(Role.values())
                 .filter(role -> role.getCode().equals(code))
                 .findFirst()
-                .orElseThrow(() -> new EnumConverterException("Incorrect user role value!"));
+                .orElseThrow(() -> new EnumConverterException("Illegal user role value!"));
     }
 
 }

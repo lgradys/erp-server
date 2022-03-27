@@ -1,9 +1,11 @@
 package warehouse.erpclient.warehouse.model;
 
 import lombok.*;
+import warehouse.erpclient.utils.exception.EnumConverterException;
 import warehouse.erpclient.warehouse.dto.ItemDTO;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.Objects;
 
 @Getter
@@ -32,14 +34,21 @@ public class Item {
         return Item.builder()
                 .name(itemDTO.getName())
                 .quantity(itemDTO.getQuantity())
-                .quantityUnit(itemDTO.getQuantityUnit())
+                .quantityUnit(getQuantityUnit(itemDTO.getQuantityUnit()))
                 .build();
     }
 
     public void editItem(ItemDTO itemDTO) {
         setName(itemDTO.getName());
         setQuantity(itemDTO.getQuantity());
-        setQuantityUnit(itemDTO.getQuantityUnit());
+        setQuantityUnit(getQuantityUnit(itemDTO.getQuantityUnit()));
+    }
+
+    private static QuantityUnit getQuantityUnit(String quantityUnitSymbol){
+        return Arrays.stream(QuantityUnit.values())
+                .filter(quantityUnit -> quantityUnit.getUnitSymbol().equals(quantityUnitSymbol))
+                .findFirst()
+                .orElseThrow(() -> new EnumConverterException("Illegal quantity unit symbol!"));
     }
 
     @Override

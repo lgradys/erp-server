@@ -24,7 +24,7 @@ public class ItemDTO {
     @Range(min = 0, max = Integer.MAX_VALUE)
     private int quantity;
 
-    private QuantityUnit quantityUnit;
+    private String quantityUnit;
     private long warehouseId;
 
     public static ItemDTO of(Item item) {
@@ -32,7 +32,7 @@ public class ItemDTO {
                 .id(item.getId())
                 .name(item.getName())
                 .quantity(item.getQuantity())
-                .quantityUnit(item.getQuantityUnit())
+                .quantityUnit(item.getQuantityUnit().getUnitSymbol())
                 .warehouseId(item.getWarehouse().getId())
                 .build();
     }
