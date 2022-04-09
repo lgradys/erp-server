@@ -62,9 +62,6 @@
     <profiles>
         <profile>
             <id>dev</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <properties>
                 <spring.profiles.active>dev</spring.profiles.active>
                 <jwt.sign>defaultValue</jwt.sign>
@@ -72,6 +69,9 @@
         </profile>
         <profile>
             <id>prod</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
                 <spring.profiles.active>prod</spring.profiles.active>
                 <jwt.sign>defaultValue</jwt.sign>
@@ -84,9 +84,6 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
-                <excludes>
-                    <exclude>application-prod.properties</exclude>
-                </excludes>
             </resource>
         </resources>
         <plugins>
