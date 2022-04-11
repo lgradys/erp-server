@@ -34,7 +34,7 @@ pipeline {
         stage('Build') {
             steps {
                 script{
-                    sh "mvn -DskipTests clean package -Djwt.sign=${jwtSign}"
+                    sh "mvn -Pdev -DskipTests clean package -Djwt.sign=${JWT_SIGN}"
                 }
             }
         }

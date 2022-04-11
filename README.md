@@ -1,7 +1,7 @@
 <h1 align="center">Warehouse Management REST API</h1>
 
 ## 📜 Description
-REST API for warehouse management, deployed from Docker image on AWS EC2 Instance with basic CI/CD implemented with Jenkins. Development profile deployed on AWS is available on **http://ec2-35-178-184-67.eu-west-2.compute.amazonaws.com:8080**. Below you can find sample credentials to login:
+REST API for warehouse management, deployed from Docker image on AWS EC2 Instance with basic CI/CD implemented with Jenkins. However, only Heroku deployment was made available to the public: **https://erp-server-prod-profile.herokuapp.com**. Mainly due to pricing conditions. Below you can find sample credentials to login. All available endpoints are included in OpenApi documentation.
 ```
 {
     "username" : "user",
@@ -25,60 +25,27 @@ REST API for warehouse management, deployed from Docker image on AWS EC2 Instanc
 - Jenkins
 
 ## ✅ Installation requirements
-- Development profile (for local use):
-  - Maven
-  - JDK 11+
+- Maven
+- JDK 11+
 
 ## 🏃‍♂️ Installation
-- Development profile (for local use):
-  - Build the application:
-  ```
-  mvn clean package
-  ```
+- Development profile:
   - Run the application:
   ```
-  mvn spring-boot:run
+  mvn clean -Pdev spring-boot:run
   ```
-  - Use sample credentials:
+  
+- Production profile (for local use):
+  - Add properties to data source connection in **application-prod.properties** file
+  - Run the application:
   ```
-  {
-  "username" : "user",
-  "password" : "password"
-  }
+  mvn clean -Pprod spring-boot:run
   ```
+  
+## 🎮 OpenApi documentation
 
-## 🎮 Sample responses
-### Login stage
-```
-{
-    "status": 401,
-    "error": [
-        {
-            "message": "Incorrect username!"
-        }
-    ],
-    "resource": []
-}
-```
-
-### Profile module
-```
-{
-    "status": 200,
-    "error": [],
-    "resource": [
-        {
-            "id": 1,
-            "name": "Laptop Dell",
-            "quantity": 50,
-            "quantityUnit": "psc",
-            "warehouseId": 1
-        }
-    ]
-}
-```
+https://erp-server-prod-profile.herokuapp.com/swagger-ui/index.html
 
 ## 🎯 Future features
 - Integration JWT with Spring Security architecture (for authorities handling)
-- Deployment production profile on AWS with online database
 - Registration page with email confirmation

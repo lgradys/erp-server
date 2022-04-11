@@ -26,9 +26,9 @@ public class AuthorizationFilter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         if (isAuthorizationRequired(request)) {
-            chain.doFilter(request, response);
-        } else {
             authorizeRequest(request, response, chain);
+        } else {
+            chain.doFilter(request, response);
         }
     }
 
@@ -54,11 +54,15 @@ public class AuthorizationFilter extends HttpFilter {
     }
 
     private boolean isAuthorizationRequired(HttpServletRequest request) {
-        return Arrays.stream(AuthorizationExclude.values())
-                .map(AuthorizationExclude::getPath)
-                .map(s -> request.getServletPath().equals(s))
+        return !Arrays.stream(AuthorizationExclude.values())
+                .map(authorizationExclude -> mapPath(authorizationExclude, request))
                 .filter(aBoolean -> aBoolean.equals(true))
                 .findAny().orElse(false);
+    }
+
+    private boolean mapPath(AuthorizationExclude authorizationExclude, HttpServletRequest request) {
+        return authorizationExclude.isBatch() ? request.getServletPath().startsWith(authorizationExclude.getPath()) :
+                request.getServletPath().equals(authorizationExclude.getPath());
     }
 
 }

@@ -25,10 +25,9 @@ import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class AuthenticationFilterTest {
-    
+
     @InjectMocks
     private AuthorizationFilter authenticationFilter;
-
 
     @Mock
     private JWTService jwtService;

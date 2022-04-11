@@ -19,6 +19,8 @@
     <properties>
         <java.version>11</java.version>
         <jwt.sign>${jwt.sign}</jwt.sign>
+        <api.version>${project.version}</api.version>
+        <module.name>${project.name}</module.name>
     </properties>
 
     <dependencies>
@@ -57,6 +59,12 @@
             <artifactId>java-jwt</artifactId>
             <version>3.18.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.6.4</version>
+        </dependency>
+
     </dependencies>
 
     <profiles>
